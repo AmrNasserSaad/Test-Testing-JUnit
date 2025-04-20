@@ -1,7 +1,9 @@
+import com.google.common.truth.Truth.assertThat
 import io.kotest.matchers.shouldBe
 import org.example.sum
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class MainKtTest {
 
@@ -23,9 +25,11 @@ class MainKtTest {
 
         // then
 
-        assertEquals(expected = 3, actual = actual)
+        assertEquals(expected = 3, actual = actual) // simple way
 
         actual shouldBe 3 // kotest way
+
+        assertThat(actual).isEqualTo(3) // google truth way
     }
 
 }
