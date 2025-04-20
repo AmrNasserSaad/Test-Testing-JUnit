@@ -1,3 +1,4 @@
+import io.kotest.matchers.shouldBe
 import org.example.sum
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
@@ -21,7 +22,10 @@ class MainKtTest {
         val actual = sum(firstNumber = input1, secondNumber = input2)
 
         // then
+
         assertEquals(expected = 3, actual = actual)
+
+        actual shouldBe 3 // kotest way
     }
 
 }
