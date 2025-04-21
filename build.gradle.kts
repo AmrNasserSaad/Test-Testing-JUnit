@@ -19,6 +19,9 @@ dependencies {
     // Google Truth
     testImplementation("com.google.truth:truth:1.4.2")
 
+    // parameterized test
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
+
 }
 
 tasks.test {

@@ -1,0 +1,61 @@
+import org.example.RestaurantOrderService
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+
+class RestaurantOrderServiceTest {
+    private lateinit var restaurantOrderService: RestaurantOrderService
+
+    @BeforeEach
+    fun setup() {
+        restaurantOrderService = RestaurantOrderService()
+    }
+
+    @Test
+    fun `getOrders should return empty list when no orders added`() {
+        val orders = restaurantOrderService.getOrders()
+        assertTrue(orders.isEmpty())
+    }
+
+    @Test
+    fun `getOrders should return when all added orders`() {
+        restaurantOrderService.addOrder("Pizza")
+        restaurantOrderService.addOrder("Burger")
+
+        val orders = restaurantOrderService.getOrders()
+
+        assertEquals(2, orders.size)
+        assertTrue(orders.contains("Pizza"))
+        assertTrue(orders.contains("Burger"))
+    }
+
+    @Test
+    fun `addOrder should add valid order to the list`() {
+        restaurantOrderService.addOrder("Salad")
+        val orders = restaurantOrderService.getOrders()
+
+        assertEquals(1, orders.size)
+        assertEquals("Salad", orders[0])
+    }
+
+    @Test
+    fun `addOrder should throw exception when order is blank`() {
+        assertThrows<IllegalArgumentException> {
+            restaurantOrderService.addOrder("")
+        }
+    }
+
+    @Test
+    fun `clearOrders should remove all orders`() {
+        restaurantOrderService.addOrder("Pasta")
+        restaurantOrderService.addOrder("Steak")
+
+        restaurantOrderService.clearOrders()
+        val orders = restaurantOrderService.getOrders()
+
+        assertTrue(orders.isEmpty())
+    }
+
+}
