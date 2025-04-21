@@ -22,6 +22,9 @@ dependencies {
     // parameterized test
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
 
+    // mock K
+    testImplementation("io.mockk:mockk:1.14.0")
+
 }
 
 tasks.test {

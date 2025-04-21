@@ -1,6 +1,10 @@
 package org.example
 
-class RestaurantOrderService {
+
+
+class RestaurantOrderService(
+   private val logger: Logger
+) {
 
     private val orders = mutableListOf<String>()
 

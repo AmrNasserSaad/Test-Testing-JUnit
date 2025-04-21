@@ -1,3 +1,5 @@
+import io.mockk.mockk
+import org.example.Logger
 import org.example.RestaurantOrderService
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -10,7 +12,8 @@ class RestaurantOrderServiceTest {
 
     @BeforeEach
     fun setup() {
-        restaurantOrderService = RestaurantOrderService()
+        val dummyLogger: Logger = mockk()
+        restaurantOrderService = RestaurantOrderService(dummyLogger)
     }
 
     @Test
