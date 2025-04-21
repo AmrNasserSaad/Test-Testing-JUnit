@@ -1,4 +1,6 @@
 import io.mockk.mockk
+import io.mockk.verify
+import org.example.DataBase
 import org.example.Logger
 import org.example.RestaurantOrderService
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -9,12 +11,25 @@ import org.junit.jupiter.api.assertThrows
 
 class RestaurantOrderServiceTest {
     private lateinit var restaurantOrderService: RestaurantOrderService
+    private val dataBase: DataBase = mockk(relaxed = true)
 
     @BeforeEach
     fun setup() {
         val dummyLogger: Logger = mockk()
-        restaurantOrderService = RestaurantOrderService(dummyLogger)
+        restaurantOrderService = RestaurantOrderService(dummyLogger, dataBase)
     }
+
+
+    // use mock
+    @Test
+    fun `clearOrders should delete all orders from database when called`() {
+        //When
+        restaurantOrderService.clearOrders()
+
+        //Then
+        verify { dataBase.deleteAllOrders() }
+    }
+
 
     @Test
     fun `getOrders should return empty list when no orders added`() {

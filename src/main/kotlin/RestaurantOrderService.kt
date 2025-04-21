@@ -1,21 +1,30 @@
 package org.example
 
 
-
 class RestaurantOrderService(
-   private val logger: Logger
+    private val logger: Logger,
+    private val dataBase: DataBase
 ) {
 
-    private val orders = mutableListOf<String>()
 
     fun addOrder(order: String) {
         if (order.isBlank()) {
+            logger.log("failed to log")
             throw IllegalArgumentException()
         }
-        orders.add(order)
+        val insertResult = dataBase.insertOrder(order)
+
+        when {
+            insertResult.isSuccess -> showMessage("Success")
+            insertResult.isFailure -> showMessage("Failed")
+        }
     }
 
-    fun getOrders(): List<String> = orders.toList()
+    private fun showMessage(message: String) {
+        println(message)
+    }
 
-    fun clearOrders() = orders.clear()
+    fun getOrders(): List<String> = dataBase.queryOrders()
+
+    fun clearOrders() = dataBase.deleteAllOrders()
 }
